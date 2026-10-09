@@ -1,12 +1,13 @@
-// HandyMan Cameroon V2 - REAL CONFIG - DO NOT COMMIT TO GITHUB PUBLICLY
-// This file is gitignored, only for live site
-const SUPABASE_CONFIG = {
-  url: "https://evfaxaosquecbwefbfac.supabase.co",
-  anonKey: "sb_publishable_0pKmTuoHdJQkduxQgu-nGg_Jw7uoAnC"
+// HandyMan Cameroon - site configuration
+// Only the PUBLIC (publishable) key belongs in this file. Never put a secret key here.
+
+window.HANDYMAN_CONFIG = {
+  SUPABASE_URL: "https://evfaxaosquecbwefbfac.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_0pKmTuoHdJQkduxQgu-nGg_Jw7uoAnC",
+  ADMIN_EMAIL: "internationalpimerchant@gmail.com"
 };
 
-if (typeof window !== 'undefined') {
-  window.SUPABASE_URL = SUPABASE_CONFIG.url;
-  window.SUPABASE_ANON_KEY = SUPABASE_CONFIG.anonKey;
-  window.SUPABASE_PUBLISHABLE_KEY = SUPABASE_CONFIG.anonKey;
-}
+// Kept so any older page code that reads these still works
+window.SUPABASE_URL = window.HANDYMAN_CONFIG.SUPABASE_URL;
+window.SUPABASE_ANON_KEY = window.HANDYMAN_CONFIG.SUPABASE_ANON_KEY;
+window.SUPABASE_PUBLISHABLE_KEY = window.HANDYMAN_CONFIG.SUPABASE_ANON_KEY;
