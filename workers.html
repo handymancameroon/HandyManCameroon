@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>Find Workers in Cameroon | Plumbers, Electricians, Cleaners - Handy Man</title>
+    <meta name="description" content="Search and contact trusted local workers across Cameroon: plumbers, electricians, cleaners, carpenters, painters, masons, nannies, house help and more in Buea, Douala, Yaoundé, Bamenda, Limbe and all towns. Free to use.">
+    <meta name="keywords" content="find workers Cameroon, plumber Buea, electrician Douala, cleaner Yaoundé, carpenter Bamenda, handyman Cameroon, artisan Cameroun">
+    <meta name="author" content="Handy Man Cameroon">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <link rel="canonical" href="https://handyman-buea.vercel.app/workers.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_CM">
+    <meta property="og:site_name" content="Handy Man Cameroon">
+    <meta property="og:title" content="Find Trusted Workers in Cameroon | Handy Man">
+    <meta property="og:description" content="Browse plumbers, electricians, cleaners and skilled workers near you. Contact via WhatsApp or call.">
+    <meta property="og:url" content="https://handyman-buea.vercel.app/workers.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Find Workers in Cameroon | Handy Man">
+    <meta name="twitter:description" content="Search skilled local workers by category and town across Cameroon.">
+
+    <meta name="geo.region" content="CM">
+    <meta name="geo.placename" content="Cameroon">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html, body { width: 100%; max-width: 100%; overflow-x: hidden; margin: 0; }
+        .container { width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px; box-sizing: border-box; }
+        .worker-grid { width: 100%; min-height: 120px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">🔧 Handy Man</a>
+            <nav class="nav" id="nav">
+                <a href="index.html" data-i18n="nav_home">Home</a>
+                <a href="workers.html" data-i18n="nav_workers">Find Workers</a>
+                <a href="jobs.html" data-i18n="nav_jobs">Find Jobs</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="join.html" class="btn-secondary" data-i18n="nav_join">Join as Worker</a>
+                <a href="post-job.html" class="btn-secondary" data-i18n="nav_post">Post a Job</a>
+                <a href="login.html" class="btn-secondary" id="authBtn" data-i18n="nav_login">Login</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu">☰</button>
+        </div>
+    </header>
+
+    <main class="search-page">
+        <div class="container">
+            <h1 data-i18n="workers_title">Find Workers in Cameroon</h1>
+            <div class="search-filters">
+                <input type="text" id="searchQuery" data-i18n-placeholder="search_placeholder" placeholder="Search by name, skill or town...">
+                <select id="categoryFilter">
+                    <option value="" data-i18n="all_categories">All Categories</option>
+                    <option value="Plumbing">Plumbing</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Carpentry">Carpentry</option>
+                    <option value="Cleaning">Cleaning</option>
+                    <option value="Painting">Painting</option>
+                    <option value="Masonry">Masonry</option>
+                    <option value="Auto Mechanics">Auto Mechanics</option>
+                    <option value="Phone/Laptop Repair">Phone/Laptop Repair</option>
+                    <option value="Hairdressing">Hairdressing</option>
+                    <option value="Catering">Catering</option>
+                    <option value="Nanny">Nanny</option>
+                    <option value="House help">House help</option>
+                    <option value="General Labour">General Labour</option>
+                    <option value="Laundry services">Laundry services</option>
+                    <option value="Transporter">Transporter</option>
+                    <option value="Errands">Errands</option>
+                    <option value="Construction Engineer">Construction Engineer</option>
+                    <option value="Teacher/Tutors">Teacher/Tutors</option>
+                    <option value="Lawyer">Lawyer</option>
+                    <option value="Family Doctors">Family Doctors</option>
+                    <option value="Stay at Home Nurse">Stay at Home Nurse</option>
+                    <option value="Security Guard">Security Guard</option>
+                    <option value="Gardener">Gardener</option>
+                    <option value="Others">Others</option>
+                </select>
+                <select id="townFilter">
+                    <option value="" data-i18n="all_towns">All Towns</option>
+                    <option value="Buea">Buea</option>
+                    <option value="Limbe">Limbe</option>
+                    <option value="Douala">Douala</option>
+                    <option value="Yaoundé">Yaoundé</option>
+                    <option value="Bamenda">Bamenda</option>
+                    <option value="Bafoussam">Bafoussam</option>
+                    <option value="Kribi">Kribi</option>
+                    <option value="Garoua">Garoua</option>
+                    <option value="Maroua">Maroua</option>
+                    <option value="Ngaoundéré">Ngaoundéré</option>
+                    <option value="Bertoua">Bertoua</option>
+                    <option value="Ebolowa">Ebolowa</option>
+                    <option value="Kumba">Kumba</option>
+                    <option value="Dschang">Dschang</option>
+                    <option value="Nkongsamba">Nkongsamba</option>
+                    <option value="Edéa">Edéa</option>
+                    <option value="Mutengene">Mutengene</option>
+                    <option value="Tiko">Tiko</option>
+                </select>
+                <button type="button" onclick="performSearch()" class="btn-primary" data-i18n="search">Search</button>
+            </div>
+            <p id="othersHint" style="display:none;color:var(--text-light);font-size:0.9rem;margin:8px 0 12px;">
+                Showing workers in custom / other categories (skills not in the main list).
+            </p>
+            <div class="worker-grid" id="searchResults">
+                <p class="loading" data-i18n="loading">Loading workers...</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        var STANDARD_CATEGORIES = [
+            'Plumbing', 'Electrical', 'Carpentry', 'Cleaning', 'Painting', 'Masonry',
+            'Auto Mechanics', 'Phone/Laptop Repair', 'Hairdressing', 'Catering',
+            'Nanny', 'House help', 'General Labour', 'Laundry services', 'Transporter',
+            'Errands', 'Construction Engineer', 'Teacher/Tutors', 'Lawyer',
+            'Family Doctors', 'Stay at Home Nurse', 'Security Guard', 'Gardener'
+        ];
+
+        var searchInProgress = false;
+
+        function isStandardCategory(cat) {
+            if (!cat) return false;
+            var c = String(cat).trim().toLowerCase();
+            if (c === 'others' || c === 'other') return false;
+            for (var i = 0; i < STANDARD_CATEGORIES.length; i++) {
+                if (STANDARD_CATEGORIES[i].toLowerCase() === c) return true;
+            }
+            return false;
+        }
+
+        function isOthersCategory(cat) {
+            if (!cat) return false;
+            var c = String(cat).trim().toLowerCase();
+            if (c === 'others' || c === 'other') return true;
+            return !isStandardCategory(cat);
+        }
+
+        function sortWorkersByOrder(list) {
+            list.sort(function (a, b) {
+                var oa = (a.sort_order != null) ? Number(a.sort_order) : 1000;
+                var ob = (b.sort_order != null) ? Number(b.sort_order) : 1000;
+                if (oa !== ob) return oa - ob;
+                var da = a.created_at ? new Date(a.created_at).getTime() : 0;
+                var db = b.created_at ? new Date(b.created_at).getTime() : 0;
+                return db - da;
+            });
+            return list;
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            try {
+                if (typeof applyLanguage === 'function') applyLanguage();
+
+                var params = new URLSearchParams(window.location.search);
+                var q = params.get('q');
+                var cat = params.get('category');
+                if (q) {
+                    var searchEl = document.getElementById('searchQuery');
+                    if (searchEl) searchEl.value = q;
+                }
+                if (cat) {
+                    var sel = document.getElementById('categoryFilter');
+                    if (sel) {
+                        var exists = false;
+                        for (var i = 0; i < sel.options.length; i++) {
+                            if (sel.options[i].value === cat) {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (exists) {
+                            sel.value = cat;
+                        } else if (isOthersCategory(cat)) {
+                            sel.value = 'Others';
+                        }
+                    }
+                }
+                await performSearch();
+            } catch (err) {
+                console.error(err);
+                var container = document.getElementById('searchResults');
+                if (container) {
+                    container.innerHTML = '<p class="empty">Could not load page. Please refresh.</p>';
+                }
+            }
+        });
+
+        async function performSearch() {
+            if (searchInProgress) return;
+            searchInProgress = true;
+
+            var queryEl = document.getElementById('searchQuery');
+            var catEl = document.getElementById('categoryFilter');
+            var townEl = document.getElementById('townFilter');
+            var container = document.getElementById('searchResults');
+            var hint = document.getElementById('othersHint');
+
+            if (!container) {
+                searchInProgress = false;
+                return;
+            }
+
+            var query = (queryEl && queryEl.value ? queryEl.value : '').toLowerCase().trim();
+            var category = catEl ? catEl.value : '';
+            var town = townEl ? townEl.value : '';
+
+            container.innerHTML = '<p class="loading">' + (typeof t === 'function' ? t('loading') : 'Searching...') + '</p>';
+            if (hint) hint.style.display = (category === 'Others') ? 'block' : 'none';
+
+            if (typeof supabaseClient === 'undefined' || !supabaseClient) {
+                container.innerHTML = '<p class="empty">Cannot load workers. Please refresh.</p>';
+                searchInProgress = false;
+                return;
+            }
+
+            try {
+                var dbQuery = supabaseClient
+                    .from('worker_details')
+                    .select('*, profiles(full_name, avatar_url, location, phone, is_deleted)')
+                    .eq('availability', 'Available')
+                    .order('sort_order', { ascending: true })
+                    .order('created_at', { ascending: false });
+
+                if (category && category !== 'Others') {
+                    dbQuery = dbQuery.eq('category', category);
+                }
+
+                var result = await dbQuery;
+                var workers = result && result.data ? result.data : null;
+                var error = result ? result.error : null;
+
+                if (error) {
+                    console.error(error);
+                    container.innerHTML = '<p class="error">' + (typeof t === 'function' ? t('error') : 'Error loading workers.') + '</p>';
+                    searchInProgress = false;
+                    return;
+                }
+
+                var filtered = [];
+                var list = workers || [];
+                for (var i = 0; i < list.length; i++) {
+                    var w = list[i];
+                    if (w.profiles && w.profiles.is_deleted === true) continue;
+                    filtered.push(w);
+                }
+
+                if (category === 'Others') {
+                    var othersOnly = [];
+                    for (var a = 0; a < filtered.length; a++) {
+                        if (isOthersCategory(filtered[a].category)) othersOnly.push(filtered[a]);
+                    }
+                    filtered = othersOnly;
+                }
+
+                if (town) {
+                    var townLower = town.toLowerCase();
+                    var byTown = [];
+                    for (var b = 0; b < filtered.length; b++) {
+                        var loc = ((filtered[b].profiles && filtered[b].profiles.location) || '').toLowerCase();
+                        if (loc.indexOf(townLower) !== -1) byTown.push(filtered[b]);
+                    }
+                    filtered = byTown;
+                }
+
+                if (query) {
+                    var byQuery = [];
+                    for (var c = 0; c < filtered.length; c++) {
+                        var w2 = filtered[c];
+                        var name = ((w2.profiles && w2.profiles.full_name) || '').toLowerCase();
+                        var cat2 = (w2.category || '').toLowerCase();
+                        var desc = (w2.description || '').toLowerCase();
+                        var loc2 = ((w2.profiles && w2.profiles.location) || '').toLowerCase();
+                        if (name.indexOf(query) !== -1 || cat2.indexOf(query) !== -1 ||
+                            desc.indexOf(query) !== -1 || loc2.indexOf(query) !== -1) {
+                            byQuery.push(w2);
+                        }
+                    }
+                    filtered = byQuery;
+                }
+
+                filtered = sortWorkersByOrder(filtered);
+
+                if (filtered.length === 0) {
+                    container.innerHTML = '<p class="empty">' + (typeof t === 'function' ? t('no_workers') : 'No workers found. Try a different search.') + '</p>';
+                    searchInProgress = false;
+                    return;
+                }
+
+                if (typeof renderWorkers === 'function') {
+                    renderWorkers(filtered, container);
+                } else {
+                    container.innerHTML = '<p class="empty">Unable to display workers. Please refresh.</p>';
+                }
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = '<p class="error">' + (typeof t === 'function' ? t('error') : 'Error loading workers.') + '</p>';
+            }
+            searchInProgress = false;
+        }
+
+        window.performSearch = performSearch;
+    </script>
+</body>
+</html>

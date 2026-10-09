@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Join as Worker | Create Profile - Handy Man Cameroon</title>
+    <meta name="description" content="Join Handy Man Cameroon as a skilled worker. Create your free profile, upload photos and start receiving jobs from clients in Buea, Douala, Yaoundé and across Cameroon.">
+    <meta name="keywords" content="join as worker Cameroon, become handyman Buea, register plumber Douala, worker profile Cameroon, artisan Cameroun, nanny, house help, gardener">
+    <meta name="author" content="Handy Man Cameroon">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://handyman-buea.vercel.app/join.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_CM">
+    <meta property="og:site_name" content="Handy Man Cameroon">
+    <meta property="og:title" content="Join as Worker | Handy Man Cameroon">
+    <meta property="og:description" content="Create your free worker profile and get jobs across Cameroon.">
+    <meta property="og:url" content="https://handyman-buea.vercel.app/join.html">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Join as Worker | Handy Man Cameroon">
+    <meta name="twitter:description" content="Free worker profiles for plumbers, electricians and skilled artisans in Cameroon.">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .custom-category-field, .custom-town-field { display: none; margin-top: 8px; }
+        .custom-category-field.active, .custom-town-field.active { display: block; }
+        .upload-hint { color: var(--text-light); font-size: 0.8rem; margin-top: 6px; display: block; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">🔧 Handy Man</a>
+            <nav class="nav" id="nav">
+                <a href="index.html" data-i18n="nav_home">Home</a>
+                <a href="workers.html" data-i18n="nav_workers">Find Workers</a>
+                <a href="jobs.html" data-i18n="nav_jobs">Find Jobs</a>
+                <a href="join.html" class="btn-secondary" data-i18n="nav_join">Join as Worker</a>
+                <a href="post-job.html" class="btn-secondary" data-i18n="nav_post">Post a Job</a>
+                <a href="login.html" class="btn-secondary" id="authBtn" data-i18n="nav_login">Login</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" type="button">☰</button>
+        </div>
+    </header>
+
+    <main class="auth-page">
+        <div class="container">
+            <div class="auth-box">
+                <h2>Join as a Service Provider</h2>
+                <p>Create your worker profile to receive jobs anywhere in Cameroon.</p>
+
+                <form id="workerForm" onsubmit="handleWorkerJoin(event)">
+                    <div class="form-group">
+                        <label>Town where you work *</label>
+                        <select id="wTown" required onchange="handleJoinTownChange()">
+                            <option value="">Select town</option>
+                            <option value="Buea">Buea</option>
+                            <option value="Limbe">Limbe</option>
+                            <option value="Douala">Douala</option>
+                            <option value="Yaoundé">Yaoundé</option>
+                            <option value="Bamenda">Bamenda</option>
+                            <option value="Bafoussam">Bafoussam</option>
+                            <option value="Kribi">Kribi</option>
+                            <option value="Garoua">Garoua</option>
+                            <option value="Maroua">Maroua</option>
+                            <option value="Ngaoundéré">Ngaoundéré</option>
+                            <option value="Bertoua">Bertoua</option>
+                            <option value="Ebolowa">Ebolowa</option>
+                            <option value="Kumba">Kumba</option>
+                            <option value="Dschang">Dschang</option>
+                            <option value="Nkongsamba">Nkongsamba</option>
+                            <option value="Edéa">Edéa</option>
+                            <option value="Mutengene">Mutengene</option>
+                            <option value="Tiko">Tiko</option>
+                            <option value="Other">Other (specify below)</option>
+                        </select>
+                        <div id="wCustomTownField" class="custom-town-field">
+                            <input type="text" id="wCustomTown" placeholder="Enter your town">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Service Category *</label>
+                        <select id="wCategory" required onchange="handleJoinCategoryChange()">
+                            <option value="">Select your main skill</option>
+                            <option value="Plumbing">Plumbing</option>
+                            <option value="Electrical">Electrical</option>
+                            <option value="Carpentry">Carpentry</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="Painting">Painting</option>
+                            <option value="Masonry">Masonry</option>
+                            <option value="Auto Mechanics">Auto Mechanics</option>
+                            <option value="Phone/Laptop Repair">Phone/Laptop Repair</option>
+                            <option value="Hairdressing">Hairdressing</option>
+                            <option value="Catering">Catering</option>
+                            <option value="Nanny">Nanny</option>
+                            <option value="House help">House help</option>
+                            <option value="General Labour">General Labour</option>
+                            <option value="Laundry services">Laundry services</option>
+                            <option value="Transporter">Transporter</option>
+                            <option value="Errands">Errands</option>
+                            <option value="Construction Engineer">Construction Engineer</option>
+                            <option value="Teacher/Tutors">Teacher/Tutors</option>
+                            <option value="Lawyer">Lawyer</option>
+                            <option value="Family Doctors">Family Doctors</option>
+                            <option value="Stay at Home Nurse">Stay at Home Nurse</option>
+                            <option value="Security Guard">Security Guard</option>
+                            <option value="Gardener">Gardener</option>
+                            <option value="Others">Others (specify below)</option>
+                        </select>
+                        <div id="wCustomCategoryField" class="custom-category-field">
+                            <input type="text" id="wCustomCategory" placeholder="Enter your skill or category (max 5 words)">
+                            <small class="upload-hint">Maximum 5 words. Extra words are removed automatically.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description of Services *</label>
+                        <textarea id="wDescription" required rows="4" placeholder="Describe what you do, your skills, and experience..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Years of Experience</label>
+                        <input type="number" id="wExperience" min="0" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone for Calls</label>
+                        <input type="tel" id="wPhone" placeholder="6XX XXX XXX">
+                    </div>
+
+                    <div class="form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="tel" id="wWhatsapp" placeholder="6XX XXX XXX">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Profile Photo (optional)</label>
+                        <input type="file" id="wAvatar" accept="image/*">
+                        <small class="upload-hint">Choose from gallery or take a photo with your camera.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Portfolio Photos (up to 2, optional)</label>
+                        <input type="file" id="wPortfolio" accept="image/*" multiple>
+                    </div>
+
+                    <button type="submit" class="btn-primary full">Create Profile</button>
+                </form>
+
+                <p id="joinMessage" class="message"></p>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            if (typeof initMobileMenu === 'function') initMobileMenu();
+            await checkAuth();
+            applyLanguage();
+
+            if (!currentUser) {
+                window.location.href = 'login.html?redirect=join';
+                return;
+            }
+
+            // Live 5-word limit on custom category
+            var customCat = document.getElementById('wCustomCategory');
+            if (customCat) {
+                customCat.addEventListener('input', function () {
+                    var limited = limitToFiveWords(this.value);
+                    if (limited !== this.value) this.value = limited;
+                });
+            }
+
+            var menuToggle = document.getElementById('menuToggle');
+            if (menuToggle && menuToggle.getAttribute('data-menu-ready') !== '1') {
+                menuToggle.addEventListener('click', function () {
+                    var n = document.getElementById('nav');
+                    if (n) n.classList.toggle('active');
+                });
+            }
+        });
+
+        function limitToFiveWords(str) {
+            if (!str) return '';
+            var words = String(str).trim().split(/\s+/).filter(Boolean);
+            if (words.length <= 5) return words.join(' ');
+            return words.slice(0, 5).join(' ');
+        }
+
+        function handleJoinTownChange() {
+            var town = document.getElementById('wTown').value;
+            var field = document.getElementById('wCustomTownField');
+            var input = document.getElementById('wCustomTown');
+            if (town === 'Other') {
+                field.classList.add('active');
+                input.required = true;
+            } else {
+                field.classList.remove('active');
+                input.required = false;
+            }
+        }
+
+        function handleJoinCategoryChange() {
+            var cat = document.getElementById('wCategory').value;
+            var field = document.getElementById('wCustomCategoryField');
+            var input = document.getElementById('wCustomCategory');
+            if (cat === 'Others') {
+                field.classList.add('active');
+                input.required = true;
+            } else {
+                field.classList.remove('active');
+                input.required = false;
+            }
+        }
+
+        function getJoinTown() {
+            var town = document.getElementById('wTown').value;
+            if (town === 'Other') {
+                return document.getElementById('wCustomTown').value.trim() || 'Cameroon';
+            }
+            return town || 'Cameroon';
+        }
+
+        function getJoinCategory() {
+            var cat = document.getElementById('wCategory').value;
+            if (cat === 'Others') {
+                return limitToFiveWords(document.getElementById('wCustomCategory').value) || 'Others';
+            }
+            return cat;
+        }
+
+        async function handleWorkerJoin(e) {
+            e.preventDefault();
+            showJoinMessage('Creating profile...', '');
+
+            try {
+                if (!supabaseClient || !currentUser) {
+                    showJoinMessage('Please login first.', 'error');
+                    return;
+                }
+
+                var userId = currentUser.id;
+                var town = getJoinTown();
+                var category = getJoinCategory();
+                var description = document.getElementById('wDescription').value.trim();
+                var experience = parseInt(document.getElementById('wExperience').value) || 0;
+                var phone = document.getElementById('wPhone').value.trim();
+                var whatsapp = document.getElementById('wWhatsapp').value.trim();
+
+                if (!town || !category || !description) {
+                    showJoinMessage('Please fill all required fields.', 'error');
+                    return;
+                }
+
+                await supabaseClient.from('profiles').update({
+                    location: town,
+                    is_worker: true
+                }).eq('id', userId);
+
+                var avatarFile = document.getElementById('wAvatar').files[0];
+                if (avatarFile) {
+                    var avatarUrl = await uploadFile(avatarFile, 'avatars', userId);
+                    if (avatarUrl) {
+                        await supabaseClient.from('profiles').update({ avatar_url: avatarUrl }).eq('id', userId);
+                    }
+                }
+
+                var portfolioUrls = [];
+                var portfolioFiles = document.getElementById('wPortfolio').files;
+                if (portfolioFiles && portfolioFiles.length > 0) {
+                    portfolioUrls = await uploadMultipleFiles(portfolioFiles, 'portfolio', userId, 2);
+                }
+
+                var details = {
+                    id: userId,
+                    category: category,
+                    description: description,
+                    experience_years: experience,
+                    contact_phone: phone || null,
+                    whatsapp_number: whatsapp || null,
+                    availability: 'Available',
+                    rating: 0,
+                    review_count: 0,
+                    portfolio: portfolioUrls.length > 0 ? portfolioUrls : null
+                };
+
+                var { error } = await supabaseClient
+                    .from('worker_details')
+                    .upsert([details], { onConflict: 'id' });
+
+                if (error) {
+                    showJoinMessage('Error: ' + error.message, 'error');
+                } else {
+                    showJoinMessage('Profile created successfully! Redirecting...', 'success');
+                    setTimeout(function () {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                }
+            } catch (err) {
+                console.error(err);
+                showJoinMessage('Something went wrong. Please try again.', 'error');
+            }
+        }
+
+        function showJoinMessage(msg, type) {
+            var el = document.getElementById('joinMessage');
+            el.textContent = msg;
+            el.className = 'message ' + (type || '');
+        }
+    </script>
+</body>
+</html>
