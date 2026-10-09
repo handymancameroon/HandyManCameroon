@@ -1,10 +1,13 @@
+# Handy Man Cameroon
 User-agent: *
 Allow: /
 
+# Private pages (not for search results)
 Disallow: /admin.html
 Disallow: /dashboard.html
-Disallow: /config.js
-Disallow: /config.template.js
-Disallow: /login.html
+Disallow: /report.html
 
-Sitemap: https://handyman-buea.vercel.app/sitemap.xml
+# Note: config.js and app.js are intentionally NOT blocked.
+# Google needs them to display the worker and job lists.
+
+Sitemap: https://handymancameroon.pages.dev/sitemap.xml

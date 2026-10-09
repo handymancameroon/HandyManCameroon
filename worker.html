@@ -6,12 +6,10 @@
     <title>Worker Profile - Handy Man Cameroon</title>
     <meta name="description" content="View worker profile, portfolio, ratings and contact details on Handy Man Cameroon. Find trusted plumbers, electricians and skilled workers across Cameroon.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://handyman-buea.vercel.app/worker.html">
     <meta property="og:type" content="profile">
     <meta property="og:site_name" content="Handy Man Cameroon">
     <meta property="og:title" content="Worker Profile - Handy Man Cameroon">
     <meta property="og:description" content="View worker profile, portfolio, ratings and contact details on Handy Man Cameroon.">
-    <meta property="og:url" content="https://handyman-buea.vercel.app/worker.html">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Worker Profile - Handy Man Cameroon">
     <meta name="twitter:description" content="View worker profile, portfolio, ratings and contact details on Handy Man Cameroon.">
@@ -235,6 +233,23 @@
                 let availabilityText = worker.availability || 'Available';
                 if (availabilityText === 'Available') availabilityText = t('availability') === 'Disponibilité' ? 'Disponible' : 'Available';
                 if (availabilityText === 'Busy') availabilityText = t('availability') === 'Disponibilité' ? 'Occupé' : 'Busy';
+
+                // SEO: give every profile its own title, description and canonical address
+                (function () {
+                    var seoTitle = (p.full_name || 'Worker') + ' - ' + catDisplay + ' in ' + (p.location || 'Cameroon') + ' | Handy Man Cameroon';
+                    var seoDesc = (p.full_name || 'Worker') + ', ' + catDisplay + ' in ' + (p.location || 'Cameroon') + '. ' +
+                        String(worker.description || '').replace(/\s+/g, ' ').substring(0, 120) + ' Call or WhatsApp directly on Handy Man Cameroon.';
+                    document.title = seoTitle;
+                    var md = document.querySelector('meta[name="description"]');
+                    if (md) md.setAttribute('content', seoDesc);
+                    var ogt = document.querySelector('meta[property="og:title"]');
+                    if (ogt) ogt.setAttribute('content', seoTitle);
+                    var ogd = document.querySelector('meta[property="og:description"]');
+                    if (ogd) ogd.setAttribute('content', seoDesc);
+                    var canon = document.querySelector('link[rel="canonical"]');
+                    if (!canon) { canon = document.createElement('link'); canon.setAttribute('rel', 'canonical'); document.head.appendChild(canon); }
+                    canon.setAttribute('href', 'https://handymancameroon.pages.dev/worker.html?id=' + encodeURIComponent(id));
+                })();
 
                 container.innerHTML = `
                     <div class="profile-header">

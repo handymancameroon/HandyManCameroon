@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Details - Handy Man</title>
+    <title>Job Details - Handy Man Cameroon</title>
+    <meta name="description" content="View this job on Handy Man Cameroon: location, budget and how to contact the client.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Handy Man Cameroon">
+    <meta property="og:title" content="Job Details - Handy Man Cameroon">
+    <meta property="og:description" content="View this job on Handy Man Cameroon.">
     <link rel="stylesheet" href="style.css">
     <style>
         .status-banner { padding: 16px 24px; border-radius: 12px; text-align: center; margin-bottom: 24px; font-weight: 700; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; }
@@ -224,6 +230,22 @@
                 }
 
                 const catDisplay = getCategoryDisplayName(job.category || 'Others');
+
+                // SEO: give every job its own title, description and canonical address
+                (function () {
+                    var seoTitle = (job.title || 'Job') + ' - ' + catDisplay + ' in ' + (job.location || 'Cameroon') + ' | Handy Man Cameroon';
+                    var seoDesc = String(job.description || '').replace(/\s+/g, ' ').substring(0, 150) + ' Budget: ' + (job.budget || 'Negotiable') + '.';
+                    document.title = seoTitle;
+                    var md = document.querySelector('meta[name="description"]');
+                    if (md) md.setAttribute('content', seoDesc);
+                    var ogt = document.querySelector('meta[property="og:title"]');
+                    if (ogt) ogt.setAttribute('content', seoTitle);
+                    var ogd = document.querySelector('meta[property="og:description"]');
+                    if (ogd) ogd.setAttribute('content', seoDesc);
+                    var canon = document.querySelector('link[rel="canonical"]');
+                    if (!canon) { canon = document.createElement('link'); canon.setAttribute('rel', 'canonical'); document.head.appendChild(canon); }
+                    canon.setAttribute('href', 'https://handymancameroon.pages.dev/job.html?id=' + encodeURIComponent(id));
+                })();
 
                 container.innerHTML = `
                     <div class="status-banner ${statusBannerClass}">${statusText}</div>
