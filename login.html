@@ -168,7 +168,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label data-i18n="town_label">Town / City *</label>
+                            <label id="townLabel">Town where the job is *</label>
                             <select id="regTown" required onchange="handleTownChange()">
                                 <option value="" data-i18n="select_town">Select town</option>
                                 <option value="Buea">Buea</option>
@@ -192,7 +192,7 @@
                                 <option value="Other">Other (specify below)</option>
                             </select>
                             <div id="customTownField" class="custom-town-field">
-                                <input type="text" id="customTown" placeholder="Enter your town">
+                                <input type="text" id="customTown" placeholder="Enter the town">
                             </div>
                         </div>
 
@@ -338,6 +338,7 @@
             const clientFields = document.getElementById('clientFields');
             const catLabel = document.getElementById('categoryLabel');
             const firstOption = document.getElementById('categoryFirstOption');
+            const townLabel = document.getElementById('townLabel');
 
             if (type === 'worker') {
                 workerFields.classList.add('active');
@@ -347,6 +348,7 @@
                 document.getElementById('cJobDesc').required = false;
                 if (catLabel) catLabel.textContent = 'Your main skill / service category *';
                 if (firstOption) firstOption.textContent = 'Select your main skill / category';
+                if (townLabel) townLabel.textContent = 'Town where you work *';
             } else {
                 workerFields.classList.remove('active');
                 clientFields.classList.add('active');
@@ -355,6 +357,7 @@
                 document.getElementById('cJobDesc').required = true;
                 if (catLabel) catLabel.textContent = 'What type of worker / service do you need to hire? *';
                 if (firstOption) firstOption.textContent = 'Select the type of service you need';
+                if (townLabel) townLabel.textContent = 'Town where the job is *';
             }
         }
 
