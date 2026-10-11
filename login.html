@@ -207,9 +207,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label id="categoryLabel">Category of the job you need *</label>
+                            <label id="categoryLabel">What type of worker / service do you need to hire? *</label>
                             <select id="serviceCategory" required onchange="handleCategoryChange()">
-                                <option value="" data-i18n="select_skill">Select category</option>
+                                <option value="" id="categoryFirstOption">Select the type of service you need</option>
                                 <option value="Plumbing">Plumbing</option>
                                 <option value="Electrical">Electrical</option>
                                 <option value="Carpentry">Carpentry</option>
@@ -236,7 +236,7 @@
                                 <option value="Others">Others (specify below)</option>
                             </select>
                             <div id="customCategoryField" class="custom-category-field">
-                                <input type="text" id="customCategory" placeholder="Enter category (max 5 words)" maxlength="60">
+                                <input type="text" id="customCategory" placeholder="Enter the type of service you need (max 5 words)" maxlength="60">
                                 <small class="upload-hint">Maximum 5 words. Extra words will be removed.</small>
                             </div>
                         </div>
@@ -320,21 +320,9 @@
             }
         });
 
-        function togglePasswordVisibility(inputId, btn) {
-            var input = document.getElementById(inputId);
-            if (!input) return;
-            if (input.type === 'password') {
-                input.type = 'text';
-                btn.textContent = 'Hide';
-            } else {
-                input.type = 'password';
-                btn.textContent = 'Show';
-            }
-        }
-
         function showTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tab + 'Tab').classList.add('active');
             if (event && event.target) event.target.classList.add('active');
             else {
@@ -349,6 +337,7 @@
             const workerFields = document.getElementById('workerFields');
             const clientFields = document.getElementById('clientFields');
             const catLabel = document.getElementById('categoryLabel');
+            const firstOption = document.getElementById('categoryFirstOption');
 
             if (type === 'worker') {
                 workerFields.classList.add('active');
@@ -356,14 +345,16 @@
                 document.getElementById('wDescription').required = true;
                 document.getElementById('cJobTitle').required = false;
                 document.getElementById('cJobDesc').required = false;
-                if (catLabel) catLabel.textContent = 'Your Service Category / Area of Competence *';
+                if (catLabel) catLabel.textContent = 'Your main skill / service category *';
+                if (firstOption) firstOption.textContent = 'Select your main skill / category';
             } else {
                 workerFields.classList.remove('active');
                 clientFields.classList.add('active');
                 document.getElementById('wDescription').required = false;
                 document.getElementById('cJobTitle').required = true;
                 document.getElementById('cJobDesc').required = true;
-                if (catLabel) catLabel.textContent = 'Category of the job you need *';
+                if (catLabel) catLabel.textContent = 'What type of worker / service do you need to hire? *';
+                if (firstOption) firstOption.textContent = 'Select the type of service you need';
             }
         }
 
@@ -631,6 +622,18 @@
                 showMessage('Something went wrong. Please try again.', 'error');
                 btn.disabled = false;
                 btn.textContent = 'Create Account';
+            }
+        }
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.textContent = 'Hide';
+            } else {
+                input.type = 'password';
+                btn.textContent = 'Show';
             }
         }
     </script>
