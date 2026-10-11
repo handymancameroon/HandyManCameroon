@@ -1,9 +1,10 @@
 // HandyMan Cameroon - site configuration
-// Only the PUBLIC (publishable) key belongs in this file. Never put a secret key here.
+// Only the PUBLIC (publishable) key belongs in this file.
+// Never put a secret key here.
 
 window.HANDYMAN_CONFIG = {
-  SUPABASE_URL: "https://evfaxaosquecbwefbfac.supabase.co",
-  SUPABASE_ANON_KEY: "sb_publishable_0pKmTuoHdJQkduxQgu-nGg_Jw7uoAnC",
+  SUPABASE_URL: "https://zuhkhpdrxwfjcqnolmpu.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_foPRwQRlPGlWBKYqeBHg4A_WcajeKKI",
   ADMIN_EMAIL: "internationalpimerchant@gmail.com"
 };
 
