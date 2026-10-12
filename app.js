@@ -1,6 +1,6 @@
 /**
  * Handy Man Buea — Core Application Logic
- * Version: 1.7.3 (Restored share button – bottom right fixed)
+ * Version: 1.7.4 (Harmonized – full functions + verified badge + share button restored)
  * Date: 12 October 2026
  *
  * SECURITY NOTES:
@@ -638,14 +638,13 @@ if (window._resolveSupabaseReady) {
 }
 
 // ============================================================================
-// MOBILE MENU (must work on all pages, including workers.html / jobs.html)
+// MOBILE MENU
 // ============================================================================
 function initMobileMenu() {
     var menuToggle = document.getElementById('menuToggle');
     var nav = document.getElementById('nav');
     if (!menuToggle || !nav) return;
 
-    // Avoid double-binding (page scripts may also attach listeners)
     if (menuToggle.getAttribute('data-menu-ready') === '1') return;
     menuToggle.setAttribute('data-menu-ready', '1');
     menuToggle.setAttribute('type', 'button');
@@ -659,7 +658,6 @@ function initMobileMenu() {
         menuToggle.setAttribute('aria-expanded', nav.classList.contains('active') ? 'true' : 'false');
     });
 
-    // Close menu when a nav link is tapped
     nav.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function () {
             nav.classList.remove('active');
@@ -667,7 +665,6 @@ function initMobileMenu() {
         });
     });
 
-    // Close when tapping outside the menu
     document.addEventListener('click', function (e) {
         if (!nav.classList.contains('active')) return;
         if (nav.contains(e.target) || menuToggle.contains(e.target)) return;
@@ -680,7 +677,6 @@ function initMobileMenu() {
 // APP INIT
 // ============================================================================
 document.addEventListener('DOMContentLoaded', async function() {
-    // FIX: bind mobile menu FIRST (before any await) so it works on all pages on phones
     initMobileMenu();
 
     try {
@@ -701,7 +697,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             initCarousel();
         }
 
-        // Original menu binding kept; skipped if initMobileMenu already bound the button
         var menuToggle = document.getElementById('menuToggle');
         if (menuToggle && menuToggle.getAttribute('data-menu-ready') !== '1') {
             menuToggle.addEventListener('click', function() {
@@ -711,7 +706,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     } catch (err) {
         console.error('[HandyMan] App init error:', err);
-        // Ensure menu still works even if other init fails
         initMobileMenu();
         if (document.getElementById('categoryGrid')) {
             renderCategories(FALLBACK_CATEGORIES);
@@ -766,7 +760,7 @@ function injectLanguageSwitcher() {
 }
 
 // ============================================================================
-// SHARE BUTTON (blue chain icon, bottom-right, always visible) — RESTORED
+// SHARE BUTTON (blue chain icon, bottom-right, always visible)
 // ============================================================================
 function injectShareButton() {
     if (document.getElementById('shareFab')) return;
@@ -866,7 +860,7 @@ function fallbackCopy(text) {
 }
 
 // ============================================================================
-// FILE UPLOAD
+// FILE UPLOAD (profile photos etc.)
 // ============================================================================
 async function uploadFile(file, folder, userId) {
     if (!supabaseClient || !file) return null;
@@ -940,8 +934,10 @@ function injectNavExtras() {
     document.body.appendChild(dropdown);
 
     document.addEventListener('click', function(e) {
-        if (!dropdown.contains(e.target) && !bellContainer.contains(e.target)) {
-            dropdown.classList.remove('active');
+        var d = document.getElementById('notificationDropdown');
+        var b = document.getElementById('navBell');
+        if (d && b && !d.contains(e.target) && !b.contains(e.target)) {
+            d.classList.remove('active');
         }
     });
 }
@@ -980,7 +976,7 @@ async function trackVisitor() {
 }
 
 // ============================================================================
-// AUTH — fixed for 403 / invalid sessions
+// AUTH
 // ============================================================================
 async function checkAuth() {
     try {
@@ -991,8 +987,13 @@ async function checkAuth() {
             return;
         }
 
-        var { data: { user }, error } = await supabaseClient.auth.getUser();
-        if (error || !user) {
+        var result = await supabaseClient.auth.getUser();
+        var user = result && result.data ? result.data.user : null;
+        var error = result ? result.error : null;
+
+        if (error) {
+            console.log('[HandyMan] Auth session invalid, clearing:', error.message);
+            try { await supabaseClient.auth.signOut(); } catch (e) {}
             currentUser = null;
             currentProfile = null;
             updateAuthUI();
@@ -1030,50 +1031,141 @@ function updateAuthUI() {
     var bell = document.getElementById('navBell');
     if (!authBtn) return;
 
-    if (currentUser) {
+    if (currentUser && supabaseClient) {
         authBtn.textContent = t('nav_logout');
+        authBtn.href = '#';
         authBtn.onclick = async function(e) {
             e.preventDefault();
-            await supabaseClient.auth.signOut();
-            currentUser = null;
-            currentProfile = null;
-            window.location.href = 'index.html';
+            try {
+                await supabaseClient.auth.signOut();
+                stopNotificationPolling();
+            } catch (e) {}
+            window.location.reload();
         };
-        if (dashLink) dashLink.style.display = 'inline-block';
-        if (bell) bell.style.display = 'inline-block';
+        if (dashLink) {
+            dashLink.style.display = 'inline-block';
+            dashLink.textContent = t('nav_profile');
+        }
+        if (bell) bell.style.display = 'inline-flex';
     } else {
         authBtn.textContent = t('nav_login');
-        authBtn.onclick = null;
         authBtn.href = 'login.html';
+        authBtn.onclick = null;
         if (dashLink) dashLink.style.display = 'none';
         if (bell) bell.style.display = 'none';
     }
 }
 
 // ============================================================================
-// NOTIFICATIONS (kept exactly as original)
+// NOTIFICATIONS
 // ============================================================================
 async function loadNotifications() {
-    // original implementation remains unchanged
+    if (!supabaseClient || !currentUser) return;
+    try {
+        var { data: notifications, error } = await supabaseClient
+            .from('notifications')
+            .select('*')
+            .eq('user_id', currentUser.id)
+            .eq('read', false)
+            .order('created_at', { ascending: false })
+            .limit(20);
+        if (error) return;
+        renderNotificationBell(notifications ? notifications.length : 0);
+        renderNotificationList(notifications || []);
+    } catch (err) {}
 }
 
-function startNotificationPolling() {
-    // original implementation remains unchanged
+function renderNotificationBell(count) {
+    var bellCount = document.getElementById('bellCount');
+    if (!bellCount) return;
+    var nextText = count > 9 ? '9+' : String(count);
+    var nextDisplay = count > 0 ? 'flex' : 'none';
+    if (bellCount.textContent !== nextText) bellCount.textContent = nextText;
+    if (bellCount.style.display !== nextDisplay) bellCount.style.display = nextDisplay;
 }
 
 function toggleNotifications() {
-    // original implementation remains unchanged
+    var dropdown = document.getElementById('notificationDropdown');
+    if (!dropdown) return;
+    dropdown.classList.toggle('active');
+    if (dropdown.classList.contains('active')) loadNotifications();
+}
+
+function renderNotificationList(notifications) {
+    var list = document.getElementById('notificationList');
+    if (!list) return;
+    var dropdown = document.getElementById('notificationDropdown');
+    if (dropdown && !dropdown.classList.contains('active')) {
+        return;
+    }
+    if (!notifications || notifications.length === 0) {
+        list.innerHTML = '<p class="notification-empty">No new notifications</p>';
+        return;
+    }
+    list.innerHTML = notifications.map(function(n) {
+        return '<div class="notification-item ' + (n.read ? 'read' : 'unread') + '" onclick="handleNotificationClick(\'' + n.id + '\', \'' + (n.job_id || '') + '\')">' +
+            '<p class="notification-msg">' + escapeHtml(n.message) + '</p>' +
+            '<span class="notification-time">' + timeAgo(n.created_at) + '</span>' +
+            '</div>';
+    }).join('');
+}
+
+async function handleNotificationClick(notificationId, jobId) {
+    if (supabaseClient && notificationId) {
+        await supabaseClient.from('notifications').update({ read: true }).eq('id', notificationId);
+        loadNotifications();
+    }
+    if (jobId) window.location.href = 'job.html?id=' + jobId;
+}
+
+function startNotificationPolling() {
+    if (notificationPollingInterval) return;
+    loadNotifications();
+    notificationPollingInterval = setInterval(function() {
+        if (currentUser) loadNotifications();
+    }, 30000);
+}
+
+function stopNotificationPolling() {
+    if (notificationPollingInterval) {
+        clearInterval(notificationPollingInterval);
+        notificationPollingInterval = null;
+    }
 }
 
 // ============================================================================
 // CATEGORIES & FEATURED WORKERS
 // ============================================================================
 async function loadCategories() {
-    // original implementation remains unchanged
+    var grid = document.getElementById('categoryGrid');
+    if (!grid) return;
+    if (!supabaseClient) {
+        renderCategories(FALLBACK_CATEGORIES);
+        return;
+    }
+    try {
+        var { data: categories, error } = await supabaseClient.from('categories').select('*').limit(30);
+        if (error || !categories || categories.length === 0) {
+            renderCategories(FALLBACK_CATEGORIES);
+            return;
+        }
+        renderCategories(categories);
+    } catch (err) {
+        renderCategories(FALLBACK_CATEGORIES);
+    }
 }
 
-function renderCategories(cats) {
-    // original implementation remains unchanged
+function renderCategories(categories) {
+    var grid = document.getElementById('categoryGrid');
+    if (!grid) return;
+    grid.innerHTML = categories.map(function(cat) {
+        var displayName = getCategoryDisplayName(cat.name);
+        return '<div class="category-card" onclick="searchByCategory(\'' + cat.name + '\')">' +
+            '<div class="category-icon">' + (cat.icon || '🔧') + '</div>' +
+            '<h3>' + displayName + '</h3>' +
+            '<p>' + (cat.description || '') + '</p>' +
+            '</div>';
+    }).join('');
 }
 
 async function loadFeaturedWorkers() {
@@ -1084,8 +1176,6 @@ async function loadFeaturedWorkers() {
         return;
     }
     try {
-        // Order follows the "Order" number set in Admin Control Panel (Workers section).
-        // Lower number appears first. Rating is used only as a secondary sort.
         var { data: workers, error } = await supabaseClient
             .from('worker_details')
             .select('*, profiles(full_name, avatar_url, location)')
@@ -1127,7 +1217,7 @@ function renderWorkers(workers, container) {
 }
 
 // ============================================================================
-// CAROUSEL & HELPERS (single timer only)
+// CAROUSEL & HELPERS
 // ============================================================================
 function initCarousel() {
     var slides = document.querySelectorAll('.carousel-slide');
@@ -1228,3 +1318,4 @@ window.escapeHtml = escapeHtml;
 window.openShareModal = openShareModal;
 window.closeShareModal = closeShareModal;
 window.copyShareText = copyShareText;
+window.handleNotificationClick = handleNotificationClick;
