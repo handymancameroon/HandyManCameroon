@@ -1,13 +1,15 @@
-# Handy Man Cameroon
+# Handy Man Cameroon - robots.txt
 User-agent: *
 Allow: /
 
-# Private pages (not for search results)
+# Private / low-value pages
 Disallow: /admin.html
 Disallow: /dashboard.html
 Disallow: /report.html
+Disallow: /config.js
+Disallow: /config.template.js
 
-# Note: config.js and app.js are intentionally NOT blocked.
-# Google needs them to display the worker and job lists.
+# Allow important JS so Google can render dynamic content
+Allow: /app.js
 
 Sitemap: https://handymancameroon.pages.dev/sitemap.xml
