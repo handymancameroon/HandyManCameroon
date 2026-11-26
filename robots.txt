@@ -12,4 +12,5 @@ Disallow: /config.template.js
 # Allow important JS so Google can render dynamic content
 Allow: /app.js
 
+# Sitemap
 Sitemap: https://handymancameroon.pages.dev/sitemap.xml
