@@ -7,6 +7,15 @@
     <meta name="description" content="Post a free job on Handy Man Cameroon. Find plumbers, electricians, nannies, cleaners and more in Buea, Douala, Yaoundé and across Cameroon.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://handymancameroon.pages.dev/post-job.html">
+
+    <!-- Favicon + Icons + Web App Manifest (SEO + mobile) -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+
     <link rel="stylesheet" href="style.css">
     <style>
         .custom-town-field, .custom-category-field { display: none; margin-top: 8px; }
@@ -261,11 +270,13 @@
             showJobMessage('Job posted successfully! Workers have been notified. Redirecting...', 'success');
             setTimeout(() => window.location.href = 'jobs.html', 1500);
         }
-        
+
         function showJobMessage(msg, type) {
-            const el = document.getElementById('jobMessage');
-            el.textContent = msg;
-            el.className = 'message ' + type;
+            var el = document.getElementById('jobMessage');
+            if (el) {
+                el.textContent = msg;
+                el.className = 'message ' + (type || '');
+            }
         }
     </script>
 </body>
