@@ -26,6 +26,14 @@
     <meta name="geo.region" content="CM">
     <meta name="geo.placename" content="Cameroon">
 
+    <!-- Favicon + Icons + Web App Manifest (SEO + mobile) -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="msapplication-TileColor" content="#2563eb">
+
     <link rel="stylesheet" href="style.css">
     <style>
         html, body { width: 100%; max-width: 100%; overflow-x: hidden; margin: 0; }
@@ -265,24 +273,23 @@
                 if (town) {
                     var townLower = town.toLowerCase();
                     var byTown = [];
-                    for (var b = 0; b < filtered.length; b++) {
-                        var loc = ((filtered[b].profiles && filtered[b].profiles.location) || '').toLowerCase();
-                        if (loc.indexOf(townLower) !== -1) byTown.push(filtered[b]);
+                    for (var t = 0; t < filtered.length; t++) {
+                        var loc = (filtered[t].profiles && filtered[t].profiles.location) ? filtered[t].profiles.location.toLowerCase() : '';
+                        if (loc.indexOf(townLower) !== -1) byTown.push(filtered[t]);
                     }
                     filtered = byTown;
                 }
 
                 if (query) {
                     var byQuery = [];
-                    for (var c = 0; c < filtered.length; c++) {
-                        var w2 = filtered[c];
-                        var name = ((w2.profiles && w2.profiles.full_name) || '').toLowerCase();
-                        var cat2 = (w2.category || '').toLowerCase();
-                        var desc = (w2.description || '').toLowerCase();
-                        var loc2 = ((w2.profiles && w2.profiles.location) || '').toLowerCase();
-                        if (name.indexOf(query) !== -1 || cat2.indexOf(query) !== -1 ||
-                            desc.indexOf(query) !== -1 || loc2.indexOf(query) !== -1) {
-                            byQuery.push(w2);
+                    for (var q = 0; q < filtered.length; q++) {
+                        var w = filtered[q];
+                        var name = (w.profiles && w.profiles.full_name) ? w.profiles.full_name.toLowerCase() : '';
+                        var cat = (w.category || '').toLowerCase();
+                        var loc = (w.profiles && w.profiles.location) ? w.profiles.location.toLowerCase() : '';
+                        var desc = (w.description || '').toLowerCase();
+                        if (name.indexOf(query) !== -1 || cat.indexOf(query) !== -1 || loc.indexOf(query) !== -1 || desc.indexOf(query) !== -1) {
+                            byQuery.push(w);
                         }
                     }
                     filtered = byQuery;
@@ -291,7 +298,7 @@
                 filtered = sortWorkersByOrder(filtered);
 
                 if (filtered.length === 0) {
-                    container.innerHTML = '<p class="empty">' + (typeof t === 'function' ? t('no_workers') : 'No workers found. Try a different search.') + '</p>';
+                    container.innerHTML = '<p class="empty">' + (typeof t === 'function' ? t('no_workers') : 'No workers found.') + '</p>';
                     searchInProgress = false;
                     return;
                 }
@@ -299,7 +306,21 @@
                 if (typeof renderWorkers === 'function') {
                     renderWorkers(filtered, container);
                 } else {
-                    container.innerHTML = '<p class="empty">Unable to display workers. Please refresh.</p>';
+                    var html = '';
+                    for (var i = 0; i < filtered.length; i++) {
+                        var w = filtered[i];
+                        var name = (w.profiles && w.profiles.full_name) ? w.profiles.full_name : 'Worker';
+                        var avatar = (w.profiles && w.profiles.avatar_url) ? w.profiles.avatar_url : '';
+                        var loc = (w.profiles && w.profiles.location) ? w.profiles.location : 'Cameroon';
+                        html += '<div class="worker-card" onclick="location.href=\'worker.html?id=' + w.id + '\'">' +
+                            (avatar ? '<div class="worker-avatar"><img src="' + avatar + '" alt="' + name + '"></div>' : '') +
+                            '<h3>' + name + '</h3>' +
+                            '<p class="worker-category">' + (w.category || '') + '</p>' +
+                            '<p class="worker-location">📍 ' + loc + '</p>' +
+                            '<button class="btn-small">View Profile</button>' +
+                            '</div>';
+                    }
+                    container.innerHTML = html;
                 }
             } catch (err) {
                 console.error(err);
@@ -307,8 +328,6 @@
             }
             searchInProgress = false;
         }
-
-        window.performSearch = performSearch;
     </script>
 </body>
 </html>
