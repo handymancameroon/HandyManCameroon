@@ -1,6 +1,6 @@
 /**
  * Handy Man Buea — Core Application Logic
- * Version: 1.7.5 (Share URL fixed + QR code added to share modal)
+ * Version: 1.7.5 (Share URL fixed + QR code added – full restored file)
  * Date: 28 November 2026
  *
  * SECURITY NOTES:
@@ -63,7 +63,6 @@ const I18N = {
         nav_login: "Login",
         nav_logout: "Logout",
         nav_profile: "My Profile",
-
         search: "Search",
         loading: "Loading...",
         view_profile: "View Profile",
@@ -78,7 +77,6 @@ const I18N = {
         select_skill: "Select your main skill / category",
         other: "Other (specify below)",
         other_simple: "Other",
-
         hero_title: "Find Trusted Local Help in Cameroon",
         hero_sub: "Connect with skilled plumbers, electricians, cleaners, and more — anywhere in Cameroon.",
         hero_find: "Find a Worker",
@@ -106,11 +104,9 @@ const I18N = {
         cities_text: "Handy Man helps you find local skilled workers in Buea, Limbe, Douala, Yaoundé, Bamenda, Bafoussam, Kribi, Kumba, Garoua, Maroua, Ngaoundéré, Bertoua, Ebolowa, Dschang, Nkongsamba, Edéa, Mutengene, Tiko and other towns across Cameroon. Looking for a plumber, electrician, carpenter or cleaner near you? Start on our Find Workers page or post a job for free.",
         footer_tagline: "Handy Man Cameroon — Find trusted local help: plumbers, electricians, cleaners, carpenters and more.",
         footer_copy: "© 2026 Handy Man. Connecting people with skilled workers across Cameroon. | Available in English and French.",
-
         jobs_title: "Find Jobs in Cameroon",
         jobs_placeholder: "Search for a job or town...",
         no_jobs: "No jobs found.",
-
         join_title: "Join as a Service Provider",
         join_sub: "Create your worker profile to receive jobs anywhere in Cameroon.",
         town_label: "Town where you work *",
@@ -121,7 +117,6 @@ const I18N = {
         whatsapp_label: "WhatsApp Number",
         create_profile: "Create Profile",
         desc_placeholder: "Describe what you do, your skills, and experience...",
-
         login_title: "Login / Register",
         login_tab: "Login",
         register_tab: "Register",
@@ -137,7 +132,6 @@ const I18N = {
         no_account: "Don't have an account? Register",
         client_type: "I need a worker (Client)",
         worker_type: "I want to offer services (Worker)",
-
         post_title: "Post a Job",
         post_sub: "Describe what you need and workers will contact you.",
         job_title_label: "Job Title *",
@@ -150,7 +144,6 @@ const I18N = {
         job_desc_placeholder: "Describe the problem in detail...",
         job_location_placeholder: "e.g. Molyko, Buea",
         job_budget_placeholder: "e.g. 5000 FCFA or Negotiable",
-
         my_dashboard: "My Profile",
         my_photo: "My profile photo",
         my_jobs: "My posted jobs",
@@ -172,7 +165,6 @@ const I18N = {
         edit_profile: "Edit My Profile",
         save_profile: "Save Profile Changes",
         profile_saved: "Profile saved successfully!",
-
         leave_rating_worker: "Leave a Rating for this Worker",
         leave_rating_client: "Rate this Client",
         your_rating: "Your Rating",
@@ -194,7 +186,6 @@ const I18N = {
         rating_error: "Could not submit rating. Please try again.",
         tell_experience: "Tell others about your experience with this worker...",
         how_was_client: "How was working with this client?",
-
         about: "About",
         contact: "Contact",
         experience: "Experience",
@@ -215,7 +206,6 @@ const I18N = {
         cannot_connect: "Cannot connect to database.",
         profile_unavailable: "This worker profile is no longer available.",
         error_loading_profile: "Error loading profile. Please try again.",
-
         job_description: "Job Description",
         client_information: "Client Information",
         ratings_for_client: "Ratings for this Client",
@@ -235,7 +225,6 @@ const I18N = {
         budget: "Budget",
         not_specified: "Not specified",
         anonymous: "Anonymous",
-
         cat_Plumbing: "Plumbing",
         cat_Electrical: "Electrical",
         cat_Carpentry: "Carpentry",
@@ -270,7 +259,6 @@ const I18N = {
         nav_login: "Connexion",
         nav_logout: "Déconnexion",
         nav_profile: "Mon Profil",
-
         search: "Rechercher",
         loading: "Chargement...",
         view_profile: "Voir le profil",
@@ -285,7 +273,6 @@ const I18N = {
         select_skill: "Sélectionnez votre compétence principale / catégorie",
         other: "Autre (précisez ci-dessous)",
         other_simple: "Autre",
-
         hero_title: "Trouvez de l'aide locale de confiance au Cameroun",
         hero_sub: "Connectez-vous avec des plombiers, électriciens, agents de nettoyage et plus — partout au Cameroun.",
         hero_find: "Trouver un ouvrier",
@@ -313,11 +300,9 @@ const I18N = {
         cities_text: "Handy Man vous aide à trouver des ouvriers qualifiés locaux à Buea, Limbe, Douala, Yaoundé, Bamenda, Bafoussam, Kribi, Kumba, Garoua, Maroua, Ngaoundéré, Bertoua, Ebolowa, Dschang, Nkongsamba, Edéa, Mutengene, Tiko et d'autres villes à travers le Cameroun. Vous cherchez un plombier, un électricien, un menuisier ou un agent de nettoyage près de chez vous ? Commencez sur notre page Trouver des ouvriers ou publiez un emploi gratuitement.",
         footer_tagline: "Handy Man Cameroun — Trouvez de l'aide locale de confiance : plombiers, électriciens, agents de nettoyage, menuisiers et plus.",
         footer_copy: "© 2026 Handy Man. Connecter les gens avec des ouvriers qualifiés à travers le Cameroun. | Disponible en anglais et en français.",
-
         jobs_title: "Trouver des emplois au Cameroun",
         jobs_placeholder: "Rechercher un emploi ou une ville...",
         no_jobs: "Aucun emploi trouvé.",
-
         join_title: "Devenir prestataire de services",
         join_sub: "Créez votre profil d'ouvrier pour recevoir des emplois partout au Cameroun.",
         town_label: "Ville où vous travaillez *",
@@ -328,7 +313,6 @@ const I18N = {
         whatsapp_label: "Numéro WhatsApp",
         create_profile: "Créer le profil",
         desc_placeholder: "Décrivez ce que vous faites, vos compétences et votre expérience...",
-
         login_title: "Connexion / Inscription",
         login_tab: "Connexion",
         register_tab: "Inscription",
@@ -344,7 +328,6 @@ const I18N = {
         no_account: "Vous n'avez pas de compte ? Inscrivez-vous",
         client_type: "J'ai besoin d'un ouvrier (Client)",
         worker_type: "Je veux offrir des services (Ouvrier)",
-
         post_title: "Publier un emploi",
         post_sub: "Décrivez ce dont vous avez besoin et les ouvriers vous contacteront.",
         job_title_label: "Titre de l'emploi *",
@@ -357,7 +340,6 @@ const I18N = {
         job_desc_placeholder: "Décrivez le problème en détail...",
         job_location_placeholder: "ex. Molyko, Buea",
         job_budget_placeholder: "ex. 5000 FCFA ou Négociable",
-
         my_dashboard: "Mon Profil",
         my_photo: "Ma photo de profil",
         my_jobs: "Mes emplois publiés",
@@ -379,7 +361,6 @@ const I18N = {
         edit_profile: "Modifier mon profil",
         save_profile: "Enregistrer les modifications du profil",
         profile_saved: "Profil enregistré avec succès !",
-
         leave_rating_worker: "Laisser une note pour cet ouvrier",
         leave_rating_client: "Noter ce client",
         your_rating: "Votre note",
@@ -401,7 +382,6 @@ const I18N = {
         rating_error: "Impossible de soumettre la note. Veuillez réessayer.",
         tell_experience: "Parlez de votre expérience avec cet ouvrier...",
         how_was_client: "Comment s'est passé le travail avec ce client ?",
-
         about: "À propos",
         contact: "Contact",
         experience: "Expérience",
@@ -422,7 +402,6 @@ const I18N = {
         cannot_connect: "Impossible de se connecter à la base de données.",
         profile_unavailable: "Ce profil d'ouvrier n'est plus disponible.",
         error_loading_profile: "Erreur lors du chargement du profil. Veuillez réessayer.",
-
         job_description: "Description de l'emploi",
         client_information: "Informations sur le client",
         ratings_for_client: "Notes pour ce client",
@@ -442,7 +421,6 @@ const I18N = {
         budget: "Budget",
         not_specified: "Non précisé",
         anonymous: "Anonyme",
-
         cat_Plumbing: "Plomberie",
         cat_Electrical: "Électricité",
         cat_Carpentry: "Menuiserie",
@@ -560,26 +538,15 @@ function applyLanguage() {
 }
 
 function translateAllSelects() {
-    var categorySelectIds = [
-        'categoryFilter',
-        'jCategory',
-        'wCategory',
-        'serviceCategory'
-    ];
-
+    var categorySelectIds = ['categoryFilter', 'jCategory', 'wCategory', 'serviceCategory'];
     categorySelectIds.forEach(function(id) {
         var sel = document.getElementById(id);
         if (!sel) return;
-
         Array.from(sel.options).forEach(function(opt) {
             var val = (opt.value || '').trim();
-
             if (!val) {
-                if (id === 'categoryFilter') {
-                    opt.text = t('all_categories');
-                } else {
-                    opt.text = t('select_skill');
-                }
+                if (id === 'categoryFilter') opt.text = t('all_categories');
+                else opt.text = t('select_skill');
             } else if (val === 'Others' || val.toLowerCase() === 'others') {
                 opt.text = t('cat_Others');
             } else {
@@ -588,26 +555,15 @@ function translateAllSelects() {
         });
     });
 
-    var townSelectIds = [
-        'townFilter',
-        'jTown',
-        'wTown',
-        'regTown'
-    ];
-
+    var townSelectIds = ['townFilter', 'jTown', 'wTown', 'regTown'];
     townSelectIds.forEach(function(id) {
         var sel = document.getElementById(id);
         if (!sel) return;
-
         Array.from(sel.options).forEach(function(opt) {
             var val = (opt.value || '').trim();
-
             if (!val) {
-                if (id === 'townFilter') {
-                    opt.text = t('all_towns');
-                } else {
-                    opt.text = t('select_town');
-                }
+                if (id === 'townFilter') opt.text = t('all_towns');
+                else opt.text = t('select_town');
             } else if (val === 'Other' || val.toLowerCase() === 'other') {
                 opt.text = (opt.textContent.toLowerCase().indexOf('specify') !== -1 || opt.textContent.toLowerCase().indexOf('précisez') !== -1) ? t('other') : t('other_simple');
             }
@@ -714,7 +670,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 });
 
 // ============================================================================
-// LANGUAGE SWITCHER (bottom-left, always visible)
+// LANGUAGE SWITCHER
 // ============================================================================
 function injectLanguageSwitcher() {
     if (document.getElementById('langSwitch')) return;
@@ -762,7 +718,7 @@ function injectLanguageSwitcher() {
 }
 
 // ============================================================================
-// SHARE BUTTON (blue chain icon, bottom-right, always visible) + QR CODE
+// SHARE BUTTON + QR CODE (FIXED URL + QR)
 // ============================================================================
 function injectShareButton() {
     if (document.getElementById('shareFab')) return;
@@ -871,7 +827,7 @@ function fallbackCopy(text) {
 }
 
 // ============================================================================
-// FILE UPLOAD (profile photos etc.)
+// FILE UPLOAD
 // ============================================================================
 async function uploadFile(file, folder, userId) {
     if (!supabaseClient || !file) return null;
@@ -1155,7 +1111,7 @@ async function loadCategories() {
         return;
     }
     try {
-        var { data: categories, error } = await supabaseClient.from('categories').select('*('*').limit(30);
+        var { data: categories, error } = await supabaseClient.from('categories').select('*').limit(30);
         if (error || !categories || categories.length === 0) {
             renderCategories(FALLBACK_CATEGORIES);
             return;
