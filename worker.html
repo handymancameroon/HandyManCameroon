@@ -37,6 +37,48 @@
         .reviewer-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
         .reviewer-link { color: var(--primary); font-weight: 600; text-decoration: none; }
         .reviewer-link:hover { text-decoration: underline; }
+
+        /* Register-to-view gate (guests only) */
+        .register-gate {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .register-gate h3 {
+            margin: 0 0 10px;
+            color: var(--primary);
+            font-size: 1.15rem;
+        }
+        .register-gate p {
+            margin: 0 0 14px;
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .register-gate .gate-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .register-gate .gate-actions a {
+            min-width: 140px;
+            text-align: center;
+        }
+        .contact-locked {
+            background: #f8fafc;
+            border: 1px dashed var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .contact-locked p {
+            margin: 0 0 12px;
+            color: var(--text-light);
+        }
     </style>
 </head>
 <body>
@@ -135,6 +177,7 @@
                 }
 
                 const p = profile || {};
+                const isLoggedIn = !!(currentUser && currentUser.id);
                 const phoneNum = (worker.whatsapp_number || p.phone || '').replace(/\D/g, '');
                 let localPhone = phoneNum;
                 if (localPhone.indexOf('237') === 0) localPhone = localPhone.substring(3);
@@ -176,7 +219,7 @@
                     displayCount = reviews.length;
                 }
 
-                // Build reviews HTML
+                // Build reviews HTML (public summary OK; only rating/comment actions are gated)
                 let reviewsHtml = '';
                 if (reviews && reviews.length > 0) {
                     reviewsHtml = reviews.map(r => {
@@ -206,8 +249,9 @@
                     reviewsHtml = '<p>' + t('no_reviews_yet') + '</p>';
                 }
 
+                // Rating form: only registered users (and not rating themselves)
                 let rateFormHtml = '';
-                if (currentUser && currentUser.id !== id) {
+                if (isLoggedIn && currentUser.id !== id) {
                     rateFormHtml = `
                         <div class="rate-form" id="rateForm">
                             <h4>⭐ ${t('leave_rating_worker')}</h4>
@@ -226,10 +270,62 @@
                             <p id="rateMessage" class="message" style="display:none;"></p>
                         </div>
                     `;
-                } else if (!currentUser) {
+                } else if (!isLoggedIn) {
                     rateFormHtml = `
-                        <div class="rate-form">
-                            <p>${t('login_to_rate').replace('login or register', '<a href="login.html">login or register</a>')}</p>
+                        <div class="rate-form contact-locked">
+                            <p><strong>🔒 ${t('login_to_rate')}</strong></p>
+                            <p style="margin-bottom:12px;">Only registered users can leave ratings and comments.</p>
+                            <div class="gate-actions" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+                                <a href="login.html" class="btn-primary">Register / Login</a>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Contact section: hidden for guests
+                let contactSectionHtml = '';
+                if (isLoggedIn) {
+                    contactSectionHtml = `
+                        <div class="profile-section">
+                            <h3>${t('contact')}</h3>
+                            ${p.phone ? `<p>📞 ${p.phone}</p>` : ''}
+                            <a href="${whatsappLink}" target="_blank" class="btn-whatsapp">💬 ${t('whatsapp')}</a>
+                            ${p.phone ? `<a href="${callLink}" class="btn-primary" style="margin-left:8px;">📞 ${t('call_now')}</a>` : ''}
+                            <div style="margin-top: 16px;">
+                                <button onclick="reportWorker('${id}', '${(p.full_name || 'Unknown').replace(/'/g, "\\'")}')" class="btn-report">🚩 ${t('report_worker')}</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    contactSectionHtml = `
+                        <div class="profile-section">
+                            <h3>${t('contact')}</h3>
+                            <div class="contact-locked">
+                                <p><strong>🔒 Contact details are only available to registered users.</strong></p>
+                                <p>Create a free account to call or WhatsApp this worker and to leave ratings.</p>
+                                <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                                    <a href="login.html" class="btn-primary">Register / Login free</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Banner for guests at top of profile
+                let registerGateHtml = '';
+                if (!isLoggedIn) {
+                    registerGateHtml = `
+                        <div class="register-gate">
+                            <h3>🔒 Full profile is for registered users</h3>
+                            <p>
+                                You can see this worker’s name, category, location and summary.
+                                To view contact details (phone / WhatsApp) and to rate or comment,
+                                please register or log in — it’s free.
+                            </p>
+                            <div class="gate-actions">
+                                <a href="login.html" class="btn-primary">Register / Login</a>
+                                <a href="workers.html" class="btn-secondary">Back to workers</a>
+                            </div>
                         </div>
                     `;
                 }
@@ -247,7 +343,7 @@
                 (function () {
                     var seoTitle = (p.full_name || 'Worker') + ' - ' + catDisplay + ' in ' + (p.location || 'Cameroon') + ' | Handy Man Cameroon';
                     var seoDesc = (p.full_name || 'Worker') + ', ' + catDisplay + ' in ' + (p.location || 'Cameroon') + '. ' +
-                        String(worker.description || '').replace(/\s+/g, ' ').substring(0, 120) + ' Call or WhatsApp directly on Handy Man Cameroon.';
+                        String(worker.description || '').replace(/\s+/g, ' ').substring(0, 120) + ' Find trusted workers on Handy Man Cameroon.';
                     document.title = seoTitle;
                     var md = document.querySelector('meta[name="description"]');
                     if (md) md.setAttribute('content', seoDesc);
@@ -261,6 +357,7 @@
                 })();
 
                 container.innerHTML = `
+                    ${registerGateHtml}
                     <div class="profile-header">
                         <img src="${avatarUrl}" class="profile-avatar"
                              onerror="this.onerror=null;this.src='https://via.placeholder.com/120?text=No+Photo'"
@@ -285,15 +382,7 @@
                             <p><strong>${t('availability')}:</strong> ${availabilityText}</p>
                         </div>
 
-                        <div class="profile-section">
-                            <h3>${t('contact')}</h3>
-                            ${p.phone ? `<p>📞 ${p.phone}</p>` : ''}
-                            <a href="${whatsappLink}" target="_blank" class="btn-whatsapp">💬 ${t('whatsapp')}</a>
-                            ${p.phone ? `<a href="${callLink}" class="btn-primary" style="margin-left:8px;">📞 ${t('call_now')}</a>` : ''}
-                            <div style="margin-top: 16px;">
-                                <button onclick="reportWorker('${id}', '${safeName}')" class="btn-report">🚩 ${t('report_worker')}</button>
-                            </div>
-                        </div>
+                        ${contactSectionHtml}
 
                         ${portfolioHtml}
 
