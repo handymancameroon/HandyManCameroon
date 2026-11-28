@@ -1,7 +1,7 @@
 /**
  * Handy Man Buea — Core Application Logic
- * Version: 1.7.4 (Harmonized – full functions + verified badge + share button restored)
- * Date: 12 October 2026
+ * Version: 1.7.5 (Share URL fixed + QR code added to share modal)
+ * Date: 28 November 2026
  *
  * SECURITY NOTES:
  * - Supabase credentials are loaded from config.js
@@ -269,7 +269,7 @@ const I18N = {
         nav_post: "Publier un emploi",
         nav_login: "Connexion",
         nav_logout: "Déconnexion",
-        nav_profile: "Mon profil",
+        nav_profile: "Mon Profil",
 
         search: "Rechercher",
         loading: "Chargement...",
@@ -281,38 +281,38 @@ const I18N = {
         all_categories: "Toutes les catégories",
         all_towns: "Toutes les villes",
         error: "Une erreur s'est produite. Veuillez réessayer.",
-        select_town: "Sélectionner une ville",
+        select_town: "Sélectionnez la ville",
         select_skill: "Sélectionnez votre compétence principale / catégorie",
         other: "Autre (précisez ci-dessous)",
         other_simple: "Autre",
 
-        hero_title: "Trouvez une aide locale de confiance au Cameroun",
-        hero_sub: "Connectez-vous avec des plombiers, électriciens, agents d'entretien et plus encore — partout au Cameroun.",
+        hero_title: "Trouvez de l'aide locale de confiance au Cameroun",
+        hero_sub: "Connectez-vous avec des plombiers, électriciens, agents de nettoyage et plus — partout au Cameroun.",
         hero_find: "Trouver un ouvrier",
         hero_post: "Publier un emploi",
         slide2_title: "Ouvriers du bâtiment qualifiés",
         slide2_sub: "Trouvez des maçons, menuisiers et constructeurs pour vos projets à Buea, Douala, Yaoundé et au-delà.",
         slide2_btn: "Trouver des constructeurs",
         slide3_title: "Services de nettoyage professionnels",
-        slide3_sub: "Faites briller votre maison ou bureau avec des agents d'entretien locaux vérifiés.",
-        slide3_btn: "Trouver des agents d'entretien",
+        slide3_sub: "Faites briller votre maison ou bureau avec des agents de nettoyage locaux vérifiés.",
+        slide3_btn: "Trouver des agents de nettoyage",
         slide4_title: "Réparations électriques expertes",
         slide4_sub: "Travaux électriques sûrs et fiables pour votre propriété partout au Cameroun.",
         slide4_btn: "Trouver des électriciens",
         popular_services: "Services populaires",
-        services_intro: "Parcourez plomberie, électricité, menuiserie, nettoyage, peinture, maçonnerie, mécanique auto, réparation de téléphones, coiffure, restauration, nounou, aide ménagère, blanchisserie, transporteur, enseignants, avocats, infirmiers, agents de sécurité, jardiniers et plus encore partout au Cameroun.",
+        services_intro: "Parcourez plomberie, électricité, menuiserie, nettoyage, peinture, maçonnerie, mécanique auto, réparation téléphone, coiffure, restauration, nounou, aide ménagère, blanchisserie, transporteur, enseignants, avocats, infirmiers, agents de sécurité, jardiniers et plus à travers le Cameroun.",
         featured_workers: "Ouvriers en vedette au Cameroun",
         how_title: "Comment ça marche",
         how_search: "Rechercher",
         how_search_p: "Trouvez le bon ouvrier dans votre ville",
         how_contact: "Contacter",
-        how_contact_p: "Appelez ou écrivez sur WhatsApp directement",
-        how_done: "Faites réaliser vos travaux",
+        how_contact_p: "Appelez-les ou contactez-les via WhatsApp directement",
+        how_done: "C'est fait",
         how_done_p: "Notez et commentez après le service",
-        cities_title: "Villes desservies au Cameroun",
-        cities_text: "Handy Man vous aide à trouver des ouvriers qualifiés locaux à Buea, Limbé, Douala, Yaoundé, Bamenda, Bafoussam, Kribi, Kumba, Garoua, Maroua, Ngaoundéré, Bertoua, Ebolowa, Dschang, Nkongsamba, Edéa, Mutengene, Tiko et dans d'autres villes du Cameroun. Vous cherchez un plombier, un électricien, un menuisier ou un agent d'entretien près de chez vous ? Commencez sur la page Trouver des ouvriers ou publiez un emploi gratuitement.",
-        footer_tagline: "Handy Man Cameroun — Trouvez une aide locale de confiance : plombiers, électriciens, agents d'entretien, menuisiers et plus encore.",
-        footer_copy: "© 2026 Handy Man. Relier les gens aux ouvriers qualifiés partout au Cameroun. | Disponible en anglais et en français.",
+        cities_title: "Villes que nous desservons au Cameroun",
+        cities_text: "Handy Man vous aide à trouver des ouvriers qualifiés locaux à Buea, Limbe, Douala, Yaoundé, Bamenda, Bafoussam, Kribi, Kumba, Garoua, Maroua, Ngaoundéré, Bertoua, Ebolowa, Dschang, Nkongsamba, Edéa, Mutengene, Tiko et d'autres villes à travers le Cameroun. Vous cherchez un plombier, un électricien, un menuisier ou un agent de nettoyage près de chez vous ? Commencez sur notre page Trouver des ouvriers ou publiez un emploi gratuitement.",
+        footer_tagline: "Handy Man Cameroun — Trouvez de l'aide locale de confiance : plombiers, électriciens, agents de nettoyage, menuisiers et plus.",
+        footer_copy: "© 2026 Handy Man. Connecter les gens avec des ouvriers qualifiés à travers le Cameroun. | Disponible en anglais et en français.",
 
         jobs_title: "Trouver des emplois au Cameroun",
         jobs_placeholder: "Rechercher un emploi ou une ville...",
@@ -335,13 +335,13 @@ const I18N = {
         email_label: "Email",
         password_label: "Mot de passe",
         confirm_password_label: "Confirmer le mot de passe *",
-        password_mismatch: "Les mots de passe ne correspondent pas. Veuillez saisir le même mot de passe deux fois.",
+        password_mismatch: "Les mots de passe ne correspondent pas. Veuillez taper le même mot de passe deux fois.",
         fullname_label: "Nom complet",
         phone_reg_label: "Numéro de téléphone",
-        login_btn: "Se connecter",
+        login_btn: "Connexion",
         register_btn: "Créer un compte",
         already_account: "Vous avez déjà un compte ? Connexion",
-        no_account: "Pas encore de compte ? Inscription",
+        no_account: "Vous n'avez pas de compte ? Inscrivez-vous",
         client_type: "J'ai besoin d'un ouvrier (Client)",
         worker_type: "Je veux offrir des services (Ouvrier)",
 
@@ -358,7 +358,7 @@ const I18N = {
         job_location_placeholder: "ex. Molyko, Buea",
         job_budget_placeholder: "ex. 5000 FCFA ou Négociable",
 
-        my_dashboard: "Mon profil",
+        my_dashboard: "Mon Profil",
         my_photo: "Ma photo de profil",
         my_jobs: "Mes emplois publiés",
         open_jobs_category: "Emplois ouverts dans ma catégorie",
@@ -368,8 +368,8 @@ const I18N = {
         select_photo_first: "Veuillez d'abord sélectionner une photo",
         upload_failed: "Échec du téléchargement. Veuillez réessayer.",
         photo_updated: "Photo mise à jour avec succès !",
-        no_jobs_yet: "Vous n'avez pas encore publié d'emploi.",
-        post_first_job: "Publier votre premier emploi",
+        no_jobs_yet: "Vous n'avez encore publié aucun emploi.",
+        post_first_job: "Publiez votre premier emploi",
         close_job: "Fermer l'emploi",
         no_worker_profile: "Vous n'avez pas encore de profil d'ouvrier.",
         create_worker_profile: "Créer un profil d'ouvrier",
@@ -377,7 +377,7 @@ const I18N = {
         contact_us: "Contactez-nous",
         send_message: "Envoyer le message",
         edit_profile: "Modifier mon profil",
-        save_profile: "Enregistrer les modifications",
+        save_profile: "Enregistrer les modifications du profil",
         profile_saved: "Profil enregistré avec succès !",
 
         leave_rating_worker: "Laisser une note pour cet ouvrier",
@@ -391,7 +391,7 @@ const I18N = {
         login_to_rate: "Veuillez vous connecter ou vous inscrire pour laisser une note et un commentaire.",
         login_to_rate_client: "Veuillez vous connecter pour noter ce client.",
         registered_only_reviews: "Seuls les utilisateurs inscrits peuvent laisser des avis. Votre photo et votre nom apparaîtront avec votre avis.",
-        no_comment: "Aucun commentaire",
+        no_comment: "Pas de commentaire",
         rating_5: "5 Étoiles - Excellent",
         rating_4: "4 Étoiles - Très bien",
         rating_3: "3 Étoiles - Bien",
@@ -737,18 +737,20 @@ function injectLanguageSwitcher() {
             z-index: 999;
             background: #fff;
             border: 1px solid #e2e8f0;
-            border-radius: 30px;
-            padding: 6px 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-            font-size: 0.85rem;
+            border-radius: 24px;
+            padding: 4px;
+            display: flex;
+            gap: 2px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .lang-switch button {
-            background: none;
             border: none;
-            cursor: pointer;
-            font-weight: 600;
-            padding: 4px 10px;
+            background: transparent;
+            padding: 6px 12px;
             border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
             color: #64748b;
         }
         .lang-switch button.active {
@@ -760,7 +762,7 @@ function injectLanguageSwitcher() {
 }
 
 // ============================================================================
-// SHARE BUTTON (blue chain icon, bottom-right, always visible)
+// SHARE BUTTON (blue chain icon, bottom-right, always visible) + QR CODE
 // ============================================================================
 function injectShareButton() {
     if (document.getElementById('shareFab')) return;
@@ -784,8 +786,12 @@ function injectShareButton() {
                 <button class="share-close" onclick="closeShareModal()" aria-label="Close">✕</button>
             </div>
             <div class="share-message-box">
-                <p id="shareText">🔧 Find trusted local workers in Cameroon! https://handyman-buea.vercel.app/</p>
+                <p id="shareText">🔧 Find trusted local workers in Cameroon! https://handymancameroon.pages.dev/</p>
                 <button class="btn-small" onclick="copyShareText()" style="margin-top:12px;">📋 Copy Message</button>
+            </div>
+            <div class="share-qr-box" style="text-align:center;margin:16px 0 8px;">
+                <p style="font-size:0.9rem;color:#64748b;margin-bottom:8px;">Scan this QR code to open the site</p>
+                <img id="shareQrImg" src="" alt="QR Code for Handy Man Cameroon" width="180" height="180" style="border:1px solid #e2e8f0;border-radius:8px;padding:8px;background:#fff;max-width:100%;">
             </div>
             <div class="share-buttons">
                 <a href="#" id="shareWhatsApp" target="_blank" rel="noopener" class="btn-whatsapp share-btn">📱 WhatsApp</a>
@@ -805,13 +811,18 @@ function openShareModal() {
     var modal = document.getElementById('shareModal');
     if (!modal) return;
 
-    var shareUrl = 'https://handyman-buea.vercel.app/';
+    var shareUrl = 'https://handymancameroon.pages.dev/';
     var shareMessage = '🔧 Find trusted local workers in Cameroon! ' + shareUrl;
     var text = encodeURIComponent(shareMessage);
     var url = encodeURIComponent(shareUrl);
 
     var shareTextEl = document.getElementById('shareText');
     if (shareTextEl) shareTextEl.textContent = shareMessage;
+
+    var qrImg = document.getElementById('shareQrImg');
+    if (qrImg) {
+        qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' + encodeURIComponent(shareUrl);
+    }
 
     var wa = document.getElementById('shareWhatsApp');
     var fb = document.getElementById('shareFacebook');
@@ -831,7 +842,7 @@ function closeShareModal() {
 
 function copyShareText() {
     var el = document.getElementById('shareText');
-    var text = el ? el.textContent : '🔧 Find trusted local workers in Cameroon! https://handyman-buea.vercel.app/';
+    var text = el ? el.textContent : '🔧 Find trusted local workers in Cameroon! https://handymancameroon.pages.dev/';
     if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function() {
             alert('Message copied!');
@@ -1144,7 +1155,7 @@ async function loadCategories() {
         return;
     }
     try {
-        var { data: categories, error } = await supabaseClient.from('categories').select('*').limit(30);
+        var { data: categories, error } = await supabaseClient.from('categories').select('*('*').limit(30);
         if (error || !categories || categories.length === 0) {
             renderCategories(FALLBACK_CATEGORIES);
             return;
